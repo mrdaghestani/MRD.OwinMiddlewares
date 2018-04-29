@@ -9,12 +9,12 @@ namespace MRD.OwinMiddlewares.DTOs
 {
     public class RequestInfo
     {
-        public Guid Id { get; set; }
-        public Uri Uri { get; set; }
-        public string Method { get; set; }
-        public QueryString QueryString { get; set; }
-        public string LocalIpAddress { get; set; }
-        public string RemoteIpAddress { get; set; }
-        public string XForwardedFor { get; set; }
+        public Guid Id { get; internal set; }
+        public Uri Uri { get; internal set; }
+        public string Method { get; internal set; }
+        public QueryString QueryString { get; internal set; }
+        public string LocalIpAddress { get; internal set; }
+        public string RemoteIpAddress { get; internal set; }
+        public string XForwardedFor { get; internal set; }
     }
 }
