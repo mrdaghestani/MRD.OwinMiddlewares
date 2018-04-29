@@ -7,7 +7,7 @@ using Microsoft.Owin;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Roza.OwinMiddlewares
+namespace MRD.OwinMiddlewares
 {
     public class RequestBodyLoggerMiddleware : OwinMiddleware
     {

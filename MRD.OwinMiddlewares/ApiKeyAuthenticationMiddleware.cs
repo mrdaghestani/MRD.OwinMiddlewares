@@ -6,7 +6,7 @@ using System.Web;
 using Microsoft.Owin;
 using System.Configuration;
 
-namespace Roza.OwinMiddlewares
+namespace MRD.OwinMiddlewares
 {
     public class ApiKeyCheckMiddleware : Microsoft.Owin.OwinMiddleware
     {

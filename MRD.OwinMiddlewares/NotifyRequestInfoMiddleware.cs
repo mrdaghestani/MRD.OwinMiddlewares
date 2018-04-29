@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Owin;
 
-namespace Roza.OwinMiddlewares
+namespace MRD.OwinMiddlewares
 {
     public class NotifyRequestInfoMiddleware : Microsoft.Owin.OwinMiddleware
     {

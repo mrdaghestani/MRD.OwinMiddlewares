@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Roza.OwinMiddlewares
+namespace MRD.OwinMiddlewares
 {
     public class ExceptionLoggerMiddleware : OwinMiddleware
     {

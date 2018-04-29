@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 
-namespace Roza.OwinMiddlewares.DTOs
+namespace MRD.OwinMiddlewares.DTOs
 {
     public class RequestInfo
     {
