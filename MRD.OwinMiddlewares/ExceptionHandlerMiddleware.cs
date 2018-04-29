@@ -1,0 +1,37 @@
+﻿using Microsoft.Owin;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+
+namespace Roza.OwinMiddlewares
+{
+    public class ExceptionLoggerMiddleware : OwinMiddleware
+    {
+        private ILogger _logger;
+
+        public ExceptionLoggerMiddleware(ILogger logger, OwinMiddleware next)
+            : base(next)
+        {
+            _logger = logger;
+        }
+
+        public override async Task Invoke(IOwinContext context)
+        {
+            try
+            {
+                await Next.Invoke(context);
+            }
+            catch (Exception ex)
+            {
+                if (_logger.IsFatalEnabled)
+                {
+                    _logger.Fatal(ex);
+                }
+                throw;
+            }
+        }
+
+    }
+}
