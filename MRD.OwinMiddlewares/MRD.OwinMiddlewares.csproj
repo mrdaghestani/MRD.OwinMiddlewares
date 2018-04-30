@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="ApiKeyAuthenticationMiddleware.cs" />
     <Compile Include="DTOs\RequestInfo.cs" />
-    <Compile Include="ExceptionHandlerMiddleware.cs" />
+    <Compile Include="ExceptionLoggerMiddleware.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="NotifyRequestInfoMiddleware.cs" />

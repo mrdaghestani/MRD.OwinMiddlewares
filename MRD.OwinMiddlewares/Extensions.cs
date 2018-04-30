@@ -22,11 +22,11 @@ namespace MRD.OwinMiddlewares
         }
         public static IAppBuilder UseExceptionLogger(this IAppBuilder app, ILogger logger)
         {
-            return app.Use<ExceptionLoggerMiddleware>();
+            return app.Use<ExceptionLoggerMiddleware>(logger);
         }
         public static IAppBuilder UseApiKeyCheck(this IAppBuilder app, string apiKeySettingsName = null)
         {
-            return app.Use<ApiKeyCheckMiddleware>();
+            return app.Use<ApiKeyCheckMiddleware>(apiKeySettingsName);
         }
     }
 }
