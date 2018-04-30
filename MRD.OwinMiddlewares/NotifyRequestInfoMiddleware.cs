@@ -11,7 +11,7 @@ namespace MRD.OwinMiddlewares
     {
         private Action<DTOs.RequestInfo> _notify;
 
-        public NotifyRequestInfoMiddleware(Action<DTOs.RequestInfo> notify, OwinMiddleware next)
+        public NotifyRequestInfoMiddleware(OwinMiddleware next, Action<DTOs.RequestInfo> notify)
             : base(next)
         {
             _notify = notify;

@@ -11,7 +11,7 @@ namespace MRD.OwinMiddlewares
     {
         private ILogger _logger;
 
-        public ExceptionLoggerMiddleware(ILogger logger, OwinMiddleware next)
+        public ExceptionLoggerMiddleware(OwinMiddleware next, ILogger logger)
             : base(next)
         {
             _logger = logger;

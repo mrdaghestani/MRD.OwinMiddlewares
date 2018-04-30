@@ -13,7 +13,7 @@ namespace MRD.OwinMiddlewares
     {
         private ILogger _logger;
 
-        public RequestBodyLoggerMiddleware(ILogger logger, OwinMiddleware next) : base(next)
+        public RequestBodyLoggerMiddleware(OwinMiddleware next, ILogger logger) : base(next)
         {
             _logger = logger;
         }
