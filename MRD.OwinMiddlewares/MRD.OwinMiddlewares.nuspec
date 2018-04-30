@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MRD.OwinMiddlewares</id>
+    <version>1.0.0.0</version>
+    <title>MRD.OwinMiddlewares</title>
+    <authors>MRDaghestani</authors>
+    <owners>MRDaghestani</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Some owin middlewares to log api request/response/exception</description>
+    <releaseNotes>Under the test</releaseNotes>
+    <copyright>Copyright © 2018</copyright>
+    <tags>owin, middleware, webapi</tags>
+    <dependencies>
+      <dependency id="Microsoft.Owin" version="4.0.0" />
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\MRD.OwinMiddlewares.dll" target="lib\net461" />
+  </files>
+</package>

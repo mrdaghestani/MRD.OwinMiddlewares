@@ -61,6 +61,7 @@
     <Compile Include="ResponseBodyLoggerMiddleware.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MRD.OwinMiddlewares.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
