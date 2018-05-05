@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <appSettings xdt:Transform="Insert">
-    <add key="MRD.OwinMiddlewares.EnableApiKeyCheck" value="True" xdt:Transform="Insert" />
-    <add key="MRD.OwinMiddlewares.EnableExceptionLogger" value="True" xdt:Transform="Insert" />
-    <add key="MRD.OwinMiddlewares.EnableRequestBodyLogger" value="True" xdt:Transform="Insert" />
-    <add key="MRD.OwinMiddlewares.EnableResponseBodyLogger" value="True" xdt:Transform="Insert" />
-  </appSettings>
-</configuration>
