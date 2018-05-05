@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,12 @@ namespace MRD.OwinMiddlewares
     public class ResponseBodyLoggerMiddleware : OwinMiddleware
     {
         private ILogger _logger;
+        private static readonly bool _isEnabled;
 
+        static ResponseBodyLoggerMiddleware()
+        {
+            _isEnabled = bool.Parse(ConfigurationManager.AppSettings["MRD.OwinMiddlewares.EnableResponseBodyLogger"] ?? "True");
+        }
         public ResponseBodyLoggerMiddleware(OwinMiddleware next, ILogger logger) : base(next)
         {
             _logger = logger;
@@ -20,33 +26,36 @@ namespace MRD.OwinMiddlewares
 
         public override async Task Invoke(IOwinContext context)
         {
-            var excludeStarters = new[] { "/swagger", "/hangfire" };
-
-            if (!excludeStarters.Any(x => context.Request.Path.ToString().ToLower().StartsWith(x)) && _logger.IsDebugEnabled)
+            if (_isEnabled)
             {
-                var responseHeaderText = JsonConvert.SerializeObject(context.Response.Headers);
-                var responseStatusCode = context.Response.StatusCode;
+                var excludeStarters = new[] { "/swagger", "/hangfire" };
 
-                var bodyStream = context.Response.Body;
+                if (!excludeStarters.Any(x => context.Request.Path.ToString().ToLower().StartsWith(x)) && _logger.IsDebugEnabled)
+                {
+                    var responseHeaderText = JsonConvert.SerializeObject(context.Response.Headers);
+                    var responseStatusCode = context.Response.StatusCode;
 
-                var responseBodyStream = new MemoryStream();
-                context.Response.Body = responseBodyStream;
+                    var bodyStream = context.Response.Body;
 
-                await Next.Invoke(context);
+                    var responseBodyStream = new MemoryStream();
+                    context.Response.Body = responseBodyStream;
 
-                responseBodyStream.Seek(0, SeekOrigin.Begin);
-                var responseBodyText = new StreamReader(responseBodyStream).ReadToEnd();
+                    await Next.Invoke(context);
 
-                _logger.Debug($"RESPONSE HEADER: {responseHeaderText}{Environment.NewLine} STATUS CODE: {responseStatusCode}{Environment.NewLine} RESPONSE BODY: {responseBodyText}");
+                    responseBodyStream.Seek(0, SeekOrigin.Begin);
+                    var responseBodyText = new StreamReader(responseBodyStream).ReadToEnd();
 
-                responseBodyStream.Seek(0, SeekOrigin.Begin);
-                await responseBodyStream.CopyToAsync(bodyStream);
-                context.Response.Body = bodyStream;
+                    _logger.Debug($"RESPONSE HEADER: {responseHeaderText}{Environment.NewLine} STATUS CODE: {responseStatusCode}{Environment.NewLine} RESPONSE BODY: {responseBodyText}");
+
+                    responseBodyStream.Seek(0, SeekOrigin.Begin);
+                    await responseBodyStream.CopyToAsync(bodyStream);
+                    context.Response.Body = bodyStream;
+
+                    return;
+                }
             }
-            else
-            {
-                await Next.Invoke(context);
-            }
+
+            await Next.Invoke(context);
         }
     }
 }

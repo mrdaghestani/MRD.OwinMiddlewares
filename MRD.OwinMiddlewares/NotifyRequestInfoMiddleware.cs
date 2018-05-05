@@ -9,27 +9,30 @@ namespace MRD.OwinMiddlewares
 {
     public class NotifyRequestInfoMiddleware : Microsoft.Owin.OwinMiddleware
     {
-        private Action<DTOs.RequestInfo> _notify;
+        private Services.INotifyRequestService _notify;
 
-        public NotifyRequestInfoMiddleware(OwinMiddleware next, Action<DTOs.RequestInfo> notify)
+        public NotifyRequestInfoMiddleware(OwinMiddleware next, Services.INotifyRequestService notify)
             : base(next)
         {
             _notify = notify;
         }
-        public override Task Invoke(IOwinContext context)
+        public async override Task Invoke(IOwinContext context)
         {
-            _notify?.Invoke(new DTOs.RequestInfo
+            if (_notify != null)
             {
-                Id = Guid.NewGuid(),
-                Uri = context.Request.Uri,
-                Method = context.Request.Method,
-                QueryString = context.Request.QueryString,
-                LocalIpAddress = context.Request.LocalIpAddress,
-                RemoteIpAddress = context.Request.RemoteIpAddress,
-                XForwardedFor = context.Request.Headers.Where(x => x.Key.ToLower() == "X-Forwarded-For".ToLower()).FirstOrDefault().Value?.FirstOrDefault(),
-            });
+                await _notify.Notify(new DTOs.RequestInfo
+                {
+                    Id = Guid.NewGuid(),
+                    Uri = context.Request.Uri,
+                    Method = context.Request.Method,
+                    QueryString = context.Request.QueryString,
+                    LocalIpAddress = context.Request.LocalIpAddress,
+                    RemoteIpAddress = context.Request.RemoteIpAddress,
+                    XForwardedFor = context.Request.Headers.Where(x => x.Key.ToLower() == "X-Forwarded-For".ToLower()).FirstOrDefault().Value?.FirstOrDefault(),
+                });
+            }
 
-            return Next.Invoke(context);
+            await Next.Invoke(context);
         }
     }
 }

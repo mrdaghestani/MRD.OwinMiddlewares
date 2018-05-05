@@ -8,7 +8,7 @@ namespace MRD.OwinMiddlewares
 {
     public static class Extensions
     {
-        public static IAppBuilder NotifyRequestInfo(this IAppBuilder app, Action<DTOs.RequestInfo> notify)
+        public static IAppBuilder NotifyRequestInfo(this IAppBuilder app, Services.INotifyRequestService notify)
         {
             return app.Use<NotifyRequestInfoMiddleware>(notify);
         }
@@ -24,9 +24,9 @@ namespace MRD.OwinMiddlewares
         {
             return app.Use<ExceptionLoggerMiddleware>(logger);
         }
-        public static IAppBuilder UseApiKeyCheck(this IAppBuilder app, string apiKeySettingsName = null)
+        public static IAppBuilder UseApiKeyCheck(this IAppBuilder app, Services.IApiKeyCheckService apiKeyCheckService)
         {
-            return app.Use<ApiKeyCheckMiddleware>(apiKeySettingsName);
+            return app.Use<ApiKeyCheckMiddleware>(apiKeyCheckService);
         }
     }
 }
