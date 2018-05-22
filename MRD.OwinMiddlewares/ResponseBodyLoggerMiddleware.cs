@@ -40,7 +40,15 @@ namespace MRD.OwinMiddlewares
                     var responseBodyStream = new MemoryStream();
                     context.Response.Body = responseBodyStream;
 
-                    await Next.Invoke(context);
+                    try
+                    {
+                        await Next.Invoke(context);
+                    }
+                    catch
+                    {
+                        context.Response.Body = bodyStream;
+                        throw;
+                    }
 
                     responseBodyStream.Seek(0, SeekOrigin.Begin);
                     var responseBodyText = new StreamReader(responseBodyStream).ReadToEnd();
