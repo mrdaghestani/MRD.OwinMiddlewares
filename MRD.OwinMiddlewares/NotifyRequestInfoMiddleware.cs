@@ -20,7 +20,7 @@ namespace MRD.OwinMiddlewares
         {
             if (_notify != null)
             {
-                await _notify.Notify(new DTOs.RequestInfo
+                _notify.Notify(new DTOs.RequestInfo
                 {
                     Id = Guid.NewGuid(),
                     Uri = context.Request.Uri,

@@ -8,6 +8,6 @@ namespace MRD.OwinMiddlewares.Services
 {
     public interface INotifyRequestService
     {
-        Task Notify(DTOs.RequestInfo requestInfo);
+        void Notify(DTOs.RequestInfo requestInfo);
     }
 }
