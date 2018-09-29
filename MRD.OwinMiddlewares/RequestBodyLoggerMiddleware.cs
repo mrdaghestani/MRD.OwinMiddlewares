@@ -27,7 +27,7 @@ namespace MRD.OwinMiddlewares
         {
             if (_isEnabled)
             {
-                var excludeStarters = new[] { "/swagger", "/hangfire" };
+                var excludeStarters = new[] { "/swagger", "/hangfire", "/ping" };
 
                 if (!excludeStarters.Any(x => context.Request.Path.ToString().ToLower().StartsWith(x)) && _logger.IsDebugEnabled)
                 {

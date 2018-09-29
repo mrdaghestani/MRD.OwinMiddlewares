@@ -28,7 +28,7 @@ namespace MRD.OwinMiddlewares
             if (_isApiKeyCheckEnabled)
             {
                 //excluding 'swagger' and 'hangfire' from api-key check
-                var excludeStarters = new[] { "/swagger", "/hangfire" };
+                var excludeStarters = new[] { "/swagger", "/hangfire", "/ping" };
 
                 if (context.Request.Path.ToString() == "/" || excludeStarters.Any(x => context.Request.Path.ToString().ToLower().StartsWith(x)))
                 {
